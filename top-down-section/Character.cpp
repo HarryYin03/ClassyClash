@@ -1,6 +1,19 @@
-#include "raylib.h"
+#include "Character.h"
 #include "raymath.h"
-#include "character.h"
+
+Character::Character()
+{
+    width = texture.width / maxFrames;
+    height = texture.height;
+}
+
+void Character::setScreenPos(int winWidth, int winHeight)
+{
+    screenPos = {
+        (float)winWidth / 2.0f - 4.0f * (0.5f * width),
+        (float)winHeight / 2.0f - 4.0f * (0.5f * height)};
+}
+void Character::tick(float deltaTime)
 {
     Vector2 direction{};
     if (IsKeyDown(KEY_A))
@@ -27,7 +40,7 @@
     runningTime += deltaTime;
     if (runningTime >= updateTime)
     {
-        
+
         frame++;
         runningTime = 0.f;
         if (frame > maxFrames)
@@ -36,36 +49,8 @@
         }
     }
     // draw the character
-    Rectangle source{frame * (float)texture.width / 6.f, 0.f, rightLeft * (float)texture.width / 6.f, (float)texture.height};
-    Rectangle dest{screenPos.x, screenPos.y, 4.0f * (float)texture.width / 6.0f, 4.0f * (float)texture.height};
+    Rectangle source{frame * width, 0.f, rightLeft * width, height};
+    Rectangle dest{screenPos.x, screenPos.y, 4.0f * width, 4.0f * height};
 
     DrawTexturePro(texture, source, dest, Vector2{}, 0.f, WHITE);
-}
-
-int main(void)
-{
-    const int windowWidth = 384;
-    const int windowHeight = 384;
-    InitWindow(windowWidth, windowHeight, "George's Top Down");
-    Texture2D map = LoadTexture("nature_tileset/WorldMap.png");
-    Vector2 mapPos = {0.0, 0.0};
-
-    Character knight;
-    knight.setScreenPos(windowWidth, windowHeight);
-
-    SetTargetFPS(60);
-
-    while (!WindowShouldClose())
-    {
-        BeginDrawing();
-        ClearBackground(WHITE);
-
-        mapPos = Vector2Scale(knight.getWorldPos(), -1.f);
-
-        DrawTextureEx(map, mapPos, 0.0, 4.0, WHITE);
-        knight.tick(GetFrameTime());
-
-        EndDrawing();
-    }
-    CloseWindow();
 }
