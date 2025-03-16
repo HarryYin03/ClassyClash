@@ -1,5 +1,6 @@
 #include "BaseCharacter.h"
 #include "raymath.h"
+#include "raylib.h"
 
 BaseCharacter::BaseCharacter()
 {
@@ -49,7 +50,7 @@ void BaseCharacter::tick(float deltaTime)
     velocity = {};
     // draw the character
     Rectangle source{frame * width, 0.f, rightLeft * width, height};
-    Rectangle dest{getScreenPos().x, screenPos.y, scale * width, scale * height};
+    Rectangle dest{getScreenPos().x, getScreenPos().y, scale * width, scale * height};
 
     DrawTexturePro(texture, source, dest, Vector2{}, 0.f, WHITE);
 }
