@@ -13,6 +13,7 @@ class BaseCharacter
         void undoMovement();
         Rectangle getCollisionRec();
         virtual void tick(float deltaTime);
+        virtual Vector2 getScreenPos() = 0;
     protected:
         Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};
         Texture2D idle{LoadTexture("characters/knight_idle_spritesheet.png")};
@@ -32,6 +33,7 @@ class BaseCharacter
         float width{};
         float height{};
         float scale{4.0f};
+        Vector2 velocity{};
 };
 
 #endif // BASE_CHARACTER_H
