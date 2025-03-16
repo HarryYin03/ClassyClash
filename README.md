@@ -1,5 +1,5 @@
 # Classy Clash
-## This is a game using C++ and raylib 
+## This is a game using C++, raylib and tiled to draw the map
 
 
 ![Image](https://github.com/user-attachments/assets/24c6334d-94bb-4596-8619-1dbcda27a16d)
